@@ -1,19 +1,26 @@
 import './App.css';
-
+import axios from 'axios'
+import { useEffect, useState } from 'react';
+import Nav from './components/Nav';
 import Card from './components/Card.jsx';
 import Cards from './components/Cards.jsx';
 import SearchBar from './components/SearchBar.jsx';
-
+import { Route, Routes, useLocation, useNavigate} from 'react-router-dom';
 import characters, { Rick } from './data.js';
-
-import Nav from './components/Nav';
-import { useState } from 'react';
-
-import axios from 'axios'
+import About from './components/About.jsx';
+import Detail from './components/Detail';
+import Form from './components/Form';
+import Favorites from './components/Favorites';
 
 function App() {
+   let   [access, setAccess]        = useState(false);
    const [characters,setCharacters] = useState([]);
+   
+   const navigate   = useNavigate();
+   const {pathname} = useLocation(); 
 
+   const EMAIL_bd    = "anaO@gmail.com";
+   const PASSWORD_bd = "abcde1";
    // const example = {
    //    id      : 1,
    //    name    : 'Rick Sanchez',
@@ -26,6 +33,21 @@ function App() {
    //    },
    //    image: 'https://rickandmortyapi.com/api/character/avatar/1.jpeg',
    // };  
+
+   function login (datosUsuario){
+      const {email, password} = datosUsuario;
+
+      //console.log(datosUsuario);
+      // (email === EMAIL && password === PASSWORD)? setAccess(true):null;
+
+      if(email === EMAIL_bd && password === PASSWORD_bd){
+         setAccess(true);
+         navigate('/home');
+      }
+
+      // console.log("acceso " ,access);
+   }
+
 
    function onSearch(idRecibido) { 
       // console.log(idRecibido);
@@ -54,7 +76,8 @@ function App() {
    }
 
    function onClose(idRecibido) {
-      setCharacters(characters.filter((charEvaluado) => charEvaluado.id !== parseInt(idRecibido,10)))
+      setCharacters(characters.filter((charEvaluado) => charEvaluado.id !== parseInt(idRecibido,10)))      
+      
    }
 
    // console.log(characters);
@@ -64,10 +87,14 @@ function App() {
    //    window.alert(5);
    // }
 
+   useEffect(()=>{
+      !access && navigate('/')
+   },[access]);
+
    return (
       <div className='App'>
-      {/* //! -------------------------------------------------
-      //! ESTO ES PARTE DE LA REACT-INTRO */}
+       {/* //! -------------------------------------------------
+           //! ESTO ES PARTE DE LA REACT-INTRO */}
          {/* <Card
             key     = {Rick.id}
             name    = {Rick.name}
@@ -82,15 +109,35 @@ function App() {
          <hr />
          <SearchBar onSearch={handleonSearch} />
          <hr /> */}
-      {/* //! -------------------------------------------------   */}
-         <Nav onSearch = {onSearch}/>
+         {/* //! -------------------------------------------------   */}                           
+         {(pathname==="/home")?<p>SWEET HOME</p>:""}
+         {(pathname==="/home")?<Nav onSearch = {onSearch}/>:""}
 
-         <Cards characters = {characters} 
-                onClose    = {onClose}
-         />
-         
+         <Routes>
+            <Route path    = "/"
+                   element = {<Form login = {login}/>}>
+            </Route>
 
-         
+            <Route path    = "/home"                   
+                   element = {<Cards
+                                    characters = {characters}
+                                    onClose    = {onClose}/>}>               
+            </Route>           
+           
+
+            <Route path    = "/about"
+                   element = {<About/>}>
+            </Route>
+
+            <Route  path    ='/favorites'
+                    element = {<Favorites onClose = {onClose}/>}>
+               
+            </Route>
+
+            <Route path    = "/detail/:detailId"
+                   element = {<Detail/>}>
+            </Route>         
+         </Routes>                
       </div>
    );
 }

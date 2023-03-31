@@ -6,11 +6,11 @@ export default function Cards(props) {
 
    return ( 
       // <div style={{display:"flex", justifyContent:"space-between"}}></div>
-      <div>
+      <>
          {characters.map((personaje)=>
                (                  
                   <Card 
-                     idCard  = {personaje.id}
+                     id      = {personaje.id}
                      name    = {personaje.name}
                      status  = {personaje.status}
                      species = {personaje.species}
@@ -22,7 +22,7 @@ export default function Cards(props) {
                )               
             )
          }
-      </div>
+      </>
    );
 
 }
