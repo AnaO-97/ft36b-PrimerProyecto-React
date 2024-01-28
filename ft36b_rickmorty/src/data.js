@@ -11,6 +11,16 @@ export const Rick = {
    image: 'https://rickandmortyapi.com/api/character/avatar/1.jpeg',
 };
 
+export const users = [
+   {
+      EMAIL_bd    : "anaO@gmail.com",
+      PASSWORD_bd : "abcde1"
+   },
+   {
+      EMAIL_bd    : "davidMartinez@gmail.com",
+      PASSWORD_bd : "abcde1"
+   },
+]
 export default [
    {
       id: 1,

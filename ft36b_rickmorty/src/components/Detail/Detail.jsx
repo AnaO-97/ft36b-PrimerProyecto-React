@@ -3,7 +3,7 @@ import { Link, useParams } from "react-router-dom"
 import axios from "axios";
 
 export default function Detail(props){
-    const [character, setCharacter] = useState({});
+    const [ character, setCharacter] = useState({});
 
     const {detailId} = useParams();
     // console.log(id);

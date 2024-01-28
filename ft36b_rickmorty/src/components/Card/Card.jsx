@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Link } from "react-router-dom";
-import { removeFav, addFav } from "../redux/actions";
+import { removeFav, addFav } from "../../redux/actions";
+import style from "./Card.module.css"
 
 function Card(props) {
   let [isFav, setIsFav] = useState(false);
@@ -22,50 +23,48 @@ function Card(props) {
       props.removeFav(props.id);
    }
 
-   useEffect (()=>{
-      props.myFavorites.map((cardFavorita)=>{
+   useEffect (()=>{            
+      props.myFavorites.map((cardFavorita)=>{         
          if(cardFavorita.id === props.id)
-            setIsFav(true);
+            setIsFav(true);            
       })
    },[props.myFavorites])
 
    return (      
-      <div  style={{border:"5px solid black",
-                   width : "200px",
-                   //display: "flex"
-                  }} 
-            key = {props.id}
-         >
+   <div>
+      <div  className = {style.card}>
 
          <div>
+            <h4>{props.id}</h4>
+            
             {
-               isFav ? (
-                  <button onClick={handleFavorite}>❤️</button>
-               ) : (
-                  <button onClick={handleFavorite}>🤍</button>
-               )
+            isFav ? (
+            <button onClick={handleFavorite}>❤️</button>
+            ) : (
+            <button onClick={handleFavorite}>🤍</button>
+            )
             }
 
             <button onClick={handleButtonClose}>X</button>
+            
          </div>
-         
-         <div key = {props.id}>
+
+         <div>
             <Link to={`/detail/${props.id}`}>
-               <h2> {props.name}    </h2>
-            </Link> 
-
-            <h2> {props.species} </h2>
-            <h2> {props.gender}  </h2>
-
-            {/* <h2> {props.origin}  </h2>
-            <h2> {props.status}  </h2> */}
+            <h4> {props.name}     </h4>
+            </Link>            
+            
+            <h4> {props.id}      </h4>
+            <h4> {props.species} </h4>
+            <h4> {props.gender}  </h4>
          </div>
-         
+
          <img src   = {props.image} 
-            alt   = "imagen no cargó" 
-            width = "100px"
-         />                          
+              alt   = "imagen no cargó" 
+              width = "100px"
+         />
       </div>
+   </div>
    );
 }
 

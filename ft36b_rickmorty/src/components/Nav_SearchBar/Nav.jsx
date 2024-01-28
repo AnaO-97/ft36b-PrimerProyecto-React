@@ -11,7 +11,7 @@ export default class Nav extends React.Component {
         return (
         <div>
             <SearchBar onSearch={this.props.onSearch} />
-            <hr />
+            <hr />            
 
             <NavLink to        =  "/about"
                      className = {({isActive})=>(isActive?"active":undefined)}

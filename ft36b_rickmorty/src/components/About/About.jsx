@@ -1,4 +1,4 @@
-import foto from '../Imagenes/FotoHojaVida.PNG'
+import foto from '../../Imagenes/Foto.PNG'
 import { Link } from 'react-router-dom';
 
 export default function About (props){
@@ -13,12 +13,12 @@ export default function About (props){
                            border:"2px solid black"}}
             />
             <div id="PieImg">
-                <span> Desarrollador FullStack </span>        
+                <span> Desarrollo Web </span>        
             </div>            
         </div> 
 
         <p>Ana María Orozco</p>  
-        <p>23 años</p>
+        <p>26 años</p>
         <p>Colombia</p>
         <p>Ingeniera Biomédica</p>
         <p>Universidad Autónoma de Manizales</p>

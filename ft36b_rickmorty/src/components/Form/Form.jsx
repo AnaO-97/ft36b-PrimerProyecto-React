@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
+import { login } from "./functions";
 import validation from "./validation"
 
 export default function Form (props){
+    const navigate   = useNavigate();
+
     const [userData,setUserData] = useState({
         email    : "",
-        password : ""
+        password : ""        
     })
 
     const [errors,setErrors] = useState({
@@ -14,9 +17,6 @@ export default function Form (props){
     })
 
     const handleChange = (event)=>{
-        // console.log(event.target.value);
-        // console.log(`${event.targer.name} --> ${event.targer.value}`);
-
         const property = event.target.name;
         const value    = event.target.value;
 
@@ -36,8 +36,7 @@ export default function Form (props){
     const handleSubmit = (event)=>{
         event.preventDefault();       
     
-        const errosKeys = Object.keys(errors);        
-        //console.log(`errores: ${errosKeys.length}`);
+        const errosKeys = Object.keys(errors);
 
         if(!errosKeys.length){
           alert('Datos completos');
@@ -49,13 +48,15 @@ export default function Form (props){
             email    : "",
             password : ""      
           })
+          
+          if (login(userData))
+            navigate('/home');  ;
         }
-        else
+        else{
           alert('Debe llenar todos los campos')
-
-        props.login(userData);
+        }
+        
     }
-    // console.log(props.login);
 
     return (
         <div>            
